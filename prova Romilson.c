@@ -21,7 +21,7 @@ int main(){
     };
 
     int uti=0, enf=0, contCad=0, internadosUti=0, internadosEnf=0, dead=0, alta=0, loopSistema=1, repetido=0, confirmacao=0, iCont, jCont, menu, subMenu;
-    char aux[10];
+    char aux[11];
     
     //criando struct para cadastro de pacientes.
     struct cadastro paciente [QUANT2];
