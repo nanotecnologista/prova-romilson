@@ -20,7 +20,7 @@ int main(){
         char Internado;
     };
 
-    int uti=0, enf=0, contCad=0, internadosUti=0, internadosEnf=0, dead=0, alta=0, x=1, repetido=0, confirmacao=0, iCont, jCont, menu, subMenu;
+    int uti=0, enf=0, contCad=0, internadosUti=0, internadosEnf=0, dead=0, alta=0, loopSistema=1, repetido=0, confirmacao=0, iCont, jCont, menu, subMenu;
     char aux[10];
     
     //criando struct para cadastro de pacientes.
@@ -221,10 +221,15 @@ int main(){
             }
                 //Opção 3= Liberar paciente
                 if(menu==3){
-                    
-                    printf(" CPF(Apenas Números): "); //verificando o cadastro do paciente
+                     //SUBMENU
+                    printf ("\t\tEscolha a opção:\n");
+                    printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
+                    scanf("%d",&subMenu);
+
+                    printf(" CPF do paciente(Apenas Números): "); //verificando o cadastro do paciente
                     fflush(stdin);
                     gets(aux);
+
                     
                     for(iCont=0; iCont<=contCad; iCont++){
                         for (jCont= 0; jCont <= MAX_CPF; jCont++){
@@ -233,10 +238,10 @@ int main(){
                             }
                         }
                         if (repetido == MAX_CPF && paciente[iCont].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
-                            //SUBMENU
-                            printf ("\t\tEscolha a opção:\n");
-                            printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
-                            scanf("%d",&subMenu);
+                            // //SUBMENU
+                            // printf ("\t\tEscolha a opção:\n");
+                            // printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
+                            // scanf("%d",&subMenu);
 
                             if (subMenu==1){ //uti
                               
@@ -293,7 +298,7 @@ int main(){
                     printf ("Fluxo de internações - UTI: %d | Enfermaria: %d", internadosUti, internadosEnf);
                     printf ("Liberações - Altas %d | Falecimentos: %d ", alta, dead);
                 }
-    }while(x==1);
+    }while(loopSistema==1);
     return 0;
 }
 
