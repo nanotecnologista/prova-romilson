@@ -228,9 +228,10 @@ int main(){
                 //Opção 3= Liberar paciente
                 if(menu==3){
                      //SUBMENU
-                    printf ("\t\tEscolha a opção:\n");
-                    printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
-                    scanf("%d",&subMenu);
+                    // printf ("\t\tEscolha a opção:\n");
+                    // printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
+                    // scanf("%d",&subMenu);
+                    // printf ("%d\n", subMenu);
 
                     printf(" CPF do paciente(Apenas Números): "); //verificando o cadastro do paciente
                     fflush(stdin);
@@ -243,14 +244,17 @@ int main(){
                                 repetido++;
                             }
                         }
+                    
                         if (repetido == MAX_CPF && paciente[iCont].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
-                            // //SUBMENU
-                            // printf ("\t\tEscolha a opção:\n");
-                            // printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
-                            // scanf("%d",&subMenu);
-
+                             //SUBMENU
+                            printf ("\t\tEscolha a opção:\n");
+                            printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
+                            scanf("%d",&subMenu);
+                            printf ("Eu vim pá cá! heheheh\n");
+                            printf ("Submenu: %d \n", subMenu);
+                            
                             if (subMenu==1){ //uti
-                              
+                              printf ("to aqui\n");
                                 printf ("\t\tLiberado por:\n");
                                 printf("    [1]Alta\n    [2]Falecimento\n"); //verificando se o paciente (voz do tiririca aqui) "Morreeeeeu" kkk
                                 scanf("%d",&subMenu);
@@ -276,6 +280,7 @@ int main(){
                                 
                                 printf ("\t\tLiberado por:\n");
                                 printf("    [1]Alta\n    [2]Falecimento\n"); //verificando se o paciente (voz do tiririca aqui) "Morreeeeeu" kkk
+                                fflush(stdin);
                                 scanf("%d",&subMenu);
 
                                 if(subMenu==1){ //submenu liberação
