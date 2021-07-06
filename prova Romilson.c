@@ -306,8 +306,8 @@ int main(){
                 }            
                 if(menu==4){ //fechar plantão
                     printf ("Total de internações: %d \n", (internadosUti+internadosEnf));
-                    printf ("Fluxo de internações - UTI: %d | Enfermaria: %d", internadosUti, internadosEnf);
-                    printf ("Liberações - Altas %d | Falecimentos: %d ", alta, dead);
+                    printf ("Fluxo de internações - UTI: %d | Enfermaria: %d\n", internadosUti, internadosEnf);
+                    printf ("Liberações - Altas %d | Falecimentos: %d \n", alta, dead);
                     printf ("contCad: %d\n", contCad);
                 }
     }while(loopSistema==1);
