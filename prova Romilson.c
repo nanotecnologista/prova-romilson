@@ -5,7 +5,7 @@
 #define QUANT 5
 #define QUANT2 100
 #define MAX_CPF 11
-#define MAX_VG 5
+#define MAX_VG 4
 
 int main(){
     
@@ -181,42 +181,41 @@ int main(){
                     }
 
                     confirmacao=0; // zerando confirmação
-                
-                    if(subMenu==2 && enf<MAX_VG){ //ainda submenu
-                        printf(" CPF(Apenas Números): "); //verificando se o paciente ja tem cadastro
-                        fflush(stdin);
-                        gets(aux);
+                }
+                if(subMenu==2 && enf<=MAX_VG){ //ainda submenu
+                    printf(" CPF(Apenas Números): "); //verificando se o paciente ja tem cadastro
+                    fflush(stdin);
+                    gets(aux);
                         
-                        for(iCont=0; iCont<contCad; iCont++){
-                            for (jCont= 0; jCont <= 10; jCont++){
-                                if (paciente[iCont].CPF[jCont] == aux[jCont]){ //verificando se o cad já existe
-                                    repetido++;
-                                }
+                    for(iCont=0; iCont<=contCad; iCont++){
+                        for (jCont= 0; jCont <= 10; jCont++){
+                            if (paciente[iCont].CPF[jCont] == aux[jCont]){ //verificando se o cad já existe
+                                repetido++;
                             }
-                            if (repetido == MAX_CPF && paciente[iCont].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
-                                printf ("Paciente Já Internado\n");
-                                repetido= 0; 
-                                break;
-                                } else if(repetido == MAX_CPF && paciente[iCont].Internado == 'N'){
-                                    printf ("Internando Paciente....\n");
-                                    printf ("Paciente Internado.\n");
+                        }
+                        if (repetido == MAX_CPF && paciente[iCont].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
+                            printf ("Paciente Já Internado\n");
+                            repetido= 0; 
+                            break;
+                            } else if(repetido == MAX_CPF && paciente[iCont].Internado == 'N'){
+                                printf ("Internando Paciente....\n");
+                                printf ("Paciente Internado.\n");
 
-                                    repetido= 0; //zerando o contador do CPF
-                                    internadosEnf++; // contando o num de internamentos do dia
-                                    enf++; //contador da uti
-                                    confirmacao= 1; 
-                                    break;
-                        }
-                        confirmacao=0; // zerando confirmação
-                        repetido= 0;
-                        }
-                        if(!confirmacao){
-                            printf("Paciente não encontrado");
-                            confirmacao=0;
-                        }
-                        if(uti==MAX_VG || enf ==MAX_VG){
-                            printf ("Capacidade maxima preenchida.\n Não foi possível internar o paciente!\n");
-                        }
+                                repetido= 0; //zerando o contador do CPF
+                                internadosEnf++; // contando o num de internamentos do dia
+                                enf++; //contador da uti
+                                confirmacao= 1; 
+                                break;
+                    }
+                    confirmacao=0; // zerando confirmação
+                    repetido= 0;
+                    }
+                    if(!confirmacao && enf<MAX_VG){
+                        printf("Paciente não encontrado");
+                        confirmacao=0;
+                    }
+                    if(uti==MAX_VG || enf ==MAX_VG){
+                        printf ("Capacidade maxima preenchida.\n Não foi possível internar o paciente!\n");
                     }
                 }
             }
