@@ -5,7 +5,7 @@
 #define QUANT 5
 #define QUANT2 100
 #define MAX_CPF 11
-#define MAX_VG 4
+#define MAX_VG 2
 
 int main(){
     
@@ -99,10 +99,12 @@ int main(){
                     for (jCont= 0; jCont <= MAX_CPF; jCont++){
                         if (paciente[iCont].CPF[jCont] == paciente[contCad].CPF[jCont]){ //verificando se o cad já existe
                         repetido++;
+                        } else if (paciente[iCont].CPF[jCont] != paciente[contCad].CPF[jCont]){
+                            break;
                         }
                     }
                     if (repetido == MAX_CPF){
-                        printf ("Paciente Já Cadastrado. Número do Cadastro: %0d\n", (iCont+1));
+                        printf ("Paciente Já Cadastrado. Número do Cadastro: %01d\n", (iCont+1));
                         confirmacao= 1;
                         contCad--;
                         repetido= 0; 
@@ -146,7 +148,7 @@ int main(){
                 printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
                 scanf("%d",&subMenu);
 
-                if (subMenu==1 && uti<=MAX_VG){
+                if (subMenu==1 && uti<MAX_VG){
                     
                     printf(" CPF(Apenas Números): "); //verificando se o paciente ja tem cadastro
                     fflush(stdin);
@@ -156,6 +158,8 @@ int main(){
                     for (jCont= 0; jCont <= MAX_CPF; jCont++){
                         if (paciente[iCont].CPF[jCont] == aux[jCont]){ //verificando se o cad já existe
                         repetido++;
+                        } else if (paciente[iCont].CPF[jCont] != paciente[contCad].CPF[jCont]){
+                            break;
                         }
                     }
                     if (repetido == MAX_CPF && paciente[iCont].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
@@ -175,14 +179,14 @@ int main(){
                     }
                     repetido= 0;
                     }
-                    if(!confirmacao){
+                    if(!confirmacao && uti<MAX_VG){
                         printf("Paciente não encontrado");
                         confirmacao= 0; //zerando confirmação novamente
                     }
 
                     confirmacao=0; // zerando confirmação
                 }
-                if(subMenu==2 && enf<=MAX_VG){ //ainda submenu
+                if(subMenu==2 && enf<MAX_VG){ //ainda submenu
                     printf(" CPF(Apenas Números): "); //verificando se o paciente ja tem cadastro
                     fflush(stdin);
                     gets(aux);
@@ -191,6 +195,8 @@ int main(){
                         for (jCont= 0; jCont <= 10; jCont++){
                             if (paciente[iCont].CPF[jCont] == aux[jCont]){ //verificando se o cad já existe
                                 repetido++;
+                            } else if (paciente[iCont].CPF[jCont] != paciente[contCad].CPF[jCont]){
+                            break;
                             }
                         }
                         if (repetido == MAX_CPF && paciente[iCont].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
@@ -214,9 +220,9 @@ int main(){
                         printf("Paciente não encontrado");
                         confirmacao=0;
                     }
-                    if(uti==MAX_VG || enf ==MAX_VG){
-                        printf ("Capacidade maxima preenchida.\n Não foi possível internar o paciente!\n");
-                    }
+                }
+                if(uti==MAX_VG || enf ==MAX_VG){
+                    printf ("Capacidade maxima preenchida.\n Não foi possível internar o paciente!\n");
                 }
             }
                 //Opção 3= Liberar paciente
@@ -297,6 +303,7 @@ int main(){
                     printf ("Total de internações: %d \n", (internadosUti+internadosEnf));
                     printf ("Fluxo de internações - UTI: %d | Enfermaria: %d", internadosUti, internadosEnf);
                     printf ("Liberações - Altas %d | Falecimentos: %d ", alta, dead);
+                    printf ("contCad: %d\n", contCad);
                 }
     }while(loopSistema==1);
     return 0;
