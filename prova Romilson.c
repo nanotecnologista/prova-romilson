@@ -250,8 +250,6 @@ int main(){
                             printf ("\t\tEscolha a opção:\n");
                             printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
                             scanf("%d",&subMenu);
-                            printf ("Eu vim pá cá! heheheh\n");
-                            printf ("Submenu: %d \n", subMenu);
                             
                             if (subMenu==1){ //uti
                               printf ("to aqui\n");
