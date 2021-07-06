@@ -4,8 +4,8 @@
 #include <string.h>
 #define QUANT 5
 #define QUANT2 100
-#define MAX_CPF
-#define MAX_VA
+#define MAX_CPF 11
+#define MAX_VG 5
 
 int main(){
     
@@ -20,11 +20,11 @@ int main(){
         char Internado;
     };
 
-    int uti=0, enf=0, contCad=0, internadosUti=0, internadosEnf=0, dead=0, alta=0, x=1, repetido=0, confirmacao=0, i, j, menu, subMenu;
+    int uti=0, enf=0, contCad=0, internadosUti=0, internadosEnf=0, dead=0, alta=0, x=1, repetido=0, confirmacao=0, iCont, jCont, menu, subMenu;
     char aux[10];
     
     //criando struct para cadastro de pacientes.
-    struct cadastro paciente [QUANT];
+    struct cadastro paciente [QUANT2];
     do{
 
         printf ("\t\tSISTEMA HOSPITALAR\n");
@@ -43,20 +43,21 @@ int main(){
             scanf("%d",&subMenu);
             
             //verificando se a uti está com a capacidade máxima
-            if(subMenu==1 && uti<5){
+            if(subMenu==1 && uti<MAX_VG){
                 printf("\tIniciando Cadastro:\n CPF(Apenas Números): ");
                 fflush(stdin);
                 gets(paciente[contCad].CPF);
-                printf ("Vagasj: %d\n", uti);
 
-                for(i=0; i<contCad; i++){
-                    for (j = 0; j <= 11; j++){
-                        if (paciente[i].CPF[j] == paciente[contCad].CPF[j]){ //verificando se o cad já existe
+                for(iCont=0; iCont<contCad; iCont++){
+                    for (jCont = 0; jCont <= MAX_CPF; jCont++){
+                        if (paciente[iCont].CPF[jCont] == paciente[contCad].CPF[jCont]){ //verificando se o cad já existe
                         repetido++;
+                        } else if (paciente[iCont].CPF[jCont] != paciente[contCad].CPF[jCont]){
+                            break;
                         }
                     }
-                    if (repetido == 11){
-                        printf ("Paciente Já Cadastrado. Número do Cadastro: %0d\n", (i+1));
+                    if (repetido == MAX_CPF){
+                        printf ("Paciente Já Cadastrado. Número do Cadastro: %0d\n", (iCont+1));
                         confirmacao= 1;
                         contCad--;
                         repetido= 0; 
@@ -83,27 +84,25 @@ int main(){
                 internadosUti++; // contando o num de internamentos do dia
                 repetido=0; //zerando repetidos
                 confirmacao=0; // zerando confirmação
-                printf ("Vagas: %d\n", uti);
                 }
+
                 confirmacao=0;
 
-                printf ("veio aqui");
-
-            } else if (subMenu==2 && enf<=5){ //submenu ainda
+            } else if (subMenu==2 && enf<MAX_VG){ //submenu ainda
 
                     //mesma verificação de dados para a enf
                     printf("\tIniciando Cadastro:\n CPF(Apenas Números): ");
                     fflush(stdin);
                     gets(paciente[contCad].CPF);
 
-                for(i=0; i<contCad; i++){
-                    for (j = 0; j <= 10; j++){
-                        if (paciente[i].CPF[j] == paciente[contCad].CPF[j]){ //verificando se o cad já existe
+                for(iCont=0; iCont<contCad; iCont++){
+                    for (jCont= 0; jCont <= MAX_CPF; jCont++){
+                        if (paciente[iCont].CPF[jCont] == paciente[contCad].CPF[jCont]){ //verificando se o cad já existe
                         repetido++;
                         }
                     }
-                    if (repetido == 11){
-                        printf ("Paciente Já Cadastrado. Número do Cadastro: %0d\n", (i+1));
+                    if (repetido == MAX_CPF){
+                        printf ("Paciente Já Cadastrado. Número do Cadastro: %0d\n", (iCont+1));
                         confirmacao= 1;
                         contCad--;
                         repetido= 0; 
@@ -132,10 +131,11 @@ int main(){
                 internadosEnf++; // contando o num de internamentos do dia
                 repetido=0; //zerando repetidos
                 confirmacao=0; // zerando confirmação 
+                }
 
-                } 
+                confirmacao=0; // zerando confirmação
             }
-            else if (uti==5 || enf == 5){//caso a uti ou a enfermaria estejam lotadas.
+            else if (uti== MAX_VG || enf == MAX_VG){//caso a uti ou a enfermaria estejam lotadas.
                 printf ("Capacidade maxíma preenchida.\n");
             }
         }
@@ -146,24 +146,24 @@ int main(){
                 printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
                 scanf("%d",&subMenu);
 
-                if (subMenu==1 && uti<=5){
+                if (subMenu==1 && uti<=MAX_VG){
                     
                     printf(" CPF(Apenas Números): "); //verificando se o paciente ja tem cadastro
                     fflush(stdin);
                     gets(aux);
                     
-                    for(i=0; i<contCad; i++){
-                    for (j = 0; j <= 10; j++){
-                        if (paciente[i].CPF[j] == aux[j]){ //verificando se o cad já existe
+                    for(iCont=0; iCont<contCad; iCont++){
+                    for (jCont= 0; jCont <= MAX_CPF; jCont++){
+                        if (paciente[iCont].CPF[jCont] == aux[jCont]){ //verificando se o cad já existe
                         repetido++;
                         }
                     }
-                    if (repetido == 10 && paciente[i].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
+                    if (repetido == MAX_CPF && paciente[iCont].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
                         printf ("Paciente Já Internado\n");
                         repetido= 0; 
                         break;
 
-                    } else if (repetido == 10 && paciente[i].Internado == 'N'){
+                    } else if (repetido == MAX_CPF && paciente[iCont].Internado == 'N'){
                         printf ("Internando Paciente....\n");
                         printf ("Paciente Internado.\n");
 
@@ -179,23 +179,25 @@ int main(){
                         printf("Paciente não encontrado");
                         confirmacao= 0; //zerando confirmação novamente
                     }
+
+                    confirmacao=0; // zerando confirmação
                 
-                    if(subMenu==2 && enf<=5){ //ainda submenu
+                    if(subMenu==2 && enf<MAX_VG){ //ainda submenu
                         printf(" CPF(Apenas Números): "); //verificando se o paciente ja tem cadastro
                         fflush(stdin);
                         gets(aux);
                         
-                        for(i=0; i<contCad; i++){
-                            for (j = 0; j <= 10; j++){
-                                if (paciente[i].CPF[j] == aux[j]){ //verificando se o cad já existe
+                        for(iCont=0; iCont<contCad; iCont++){
+                            for (jCont= 0; jCont <= 10; jCont++){
+                                if (paciente[iCont].CPF[jCont] == aux[jCont]){ //verificando se o cad já existe
                                     repetido++;
                                 }
                             }
-                            if (repetido == 10 && paciente[i].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
+                            if (repetido == MAX_CPF && paciente[iCont].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
                                 printf ("Paciente Já Internado\n");
                                 repetido= 0; 
                                 break;
-                                } else if(repetido == 10 && paciente[i].Internado == 'N'){
+                                } else if(repetido == MAX_CPF && paciente[iCont].Internado == 'N'){
                                     printf ("Internando Paciente....\n");
                                     printf ("Paciente Internado.\n");
 
@@ -205,15 +207,16 @@ int main(){
                                     confirmacao= 1; 
                                     break;
                         }
+                        confirmacao=0; // zerando confirmação
                         repetido= 0;
                         }
                         if(!confirmacao){
                             printf("Paciente não encontrado");
                             confirmacao=0;
                         }
-                            if(uti==5 || enf ==5){
-                                printf ("Capacidade maxima preenchida.\n Não foi possível internar o paciente!\n");
-                            }
+                        if(uti==MAX_VG || enf ==MAX_VG){
+                            printf ("Capacidade maxima preenchida.\n Não foi possível internar o paciente!\n");
+                        }
                     }
                 }
             }
@@ -224,13 +227,13 @@ int main(){
                     fflush(stdin);
                     gets(aux);
                     
-                    for(i=0; i<contCad; i++){
-                        for (j = 0; j <= 10; j++){
-                            if (paciente[i].CPF[j] == aux[j]){ //verificando se o cad já existe
+                    for(iCont=0; iCont<=contCad; iCont++){
+                        for (jCont= 0; jCont <= MAX_CPF; jCont++){
+                            if (paciente[iCont].CPF[jCont] == aux[jCont]){ //verificando se o cad já existe
                                 repetido++;
                             }
                         }
-                        if (repetido == 10 && paciente[i].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
+                        if (repetido == MAX_CPF && paciente[iCont].Internado=='S'){ // verificando se o cad já existe e se o paciente já está internado
                             //SUBMENU
                             printf ("\t\tEscolha a opção:\n");
                             printf("    [1]UTI\n    [2]Enfermaria\n"); //verificando onde o paciente será internado
@@ -245,7 +248,7 @@ int main(){
                                 if(subMenu==1){ //submenu liberação
                                 printf ("Liberando Paciente...\n");
                                 printf("Paciente Liberado\n");
-                                paciente[i].Internado = 'N';
+                                paciente[iCont].Internado = 'N';
                                 uti--;
                                 alta++;
                                 }
@@ -253,7 +256,7 @@ int main(){
                                 if(subMenu==2){ //submenu liberação
                                 printf ("Liberando Paciente...\n");
                                 printf("Paciente Liberado\n");
-                                paciente[i].Internado = 'N';
+                                paciente[iCont].Internado = 'N';
                                 uti--;
                                 dead++;
                                 }  
@@ -268,7 +271,7 @@ int main(){
                                 if(subMenu==1){ //submenu liberação
                                     printf ("Liberando Paciente...\n");
                                     printf("Paciente Liberado\n");
-                                    paciente[i].Internado = 'N';
+                                    paciente[iCont].Internado = 'N';
                                     enf--;
                                     alta++;
                                 }
@@ -276,7 +279,7 @@ int main(){
                                 if(subMenu==2){ //submenu liberação
                                     printf ("Liberando Paciente...\n");
                                     printf("Paciente Liberado\n");
-                                    paciente[i].Internado = 'N';
+                                    paciente[iCont].Internado = 'N';
                                     enf--;
                                     dead++;
                                 }
@@ -284,6 +287,7 @@ int main(){
                         }
                     } 
                     repetido= 0;
+                    confirmacao=0; // zerando confirmação
                 }            
                 if(menu==4){ //fechar plantão
                     printf ("Total de internações: %d \n", (internadosUti+internadosEnf));
