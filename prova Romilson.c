@@ -5,7 +5,7 @@
 #define QUANT 5
 #define QUANT2 100
 #define MAX_CPF 11
-#define MAX_VG 2
+#define MAX_VG 5
 
 int main(){
     
